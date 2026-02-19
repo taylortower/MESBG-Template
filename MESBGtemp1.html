@@ -1,1 +1,85 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Medieval Hero Card</title>\n    <style>\n        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }\n        .hero-card { border: 1px solid #ccc; border-radius: 5px; padding: 20px; max-width: 300px; }\n        .hero-name { font-size: 24px; font-weight: bold; }\n        .stats { display: flex; justify-content: space-between; }\n        .control-panel { margin-top: 20px; }\n        input[type='file'] { margin-bottom: 10px; }\n    </style>\n</head>\n<body>\n    <div class="hero-card">\n        <div class="hero-name" contenteditable="true">Hero Name</div>\n        <img src="" alt="Hero Portrait" id="hero-portrait" style="width: 100%; height: auto;">\n        <div class="stats">\n            <div>Type: <span contenteditable="true">Hero Type</span></div>\n            <div>Stats: <span contenteditable="true">Mv</span> | <span contenteditable="true">F</span> | <span contenteditable="true">S</span> | <span contenteditable="true">D</span> | <span contenteditable="true">A</span> | <span contenteditable="true">W</span> | <span contenteditable="true">C</span></div>\n        </div>\n        <div>Shields: <span contenteditable="true">Might</span> | <span contenteditable="true">Will</span> | <span contenteditable="true">Fate</span></div>\n        <div class="wargear">Wargear: <span contenteditable="true">Wargear Description</span></div>\n        <div class="heroic-actions">Heroic Actions: <span contenteditable="true">Action</span></div>\n        <div class="magical-powers">Magical Powers: <span contenteditable="true">Powers</span></div>\n        <div class="control-panel">\n            <h3>Control Panel</h3>\n            <input type="file" accept="image/*" id="portrait-upload">\n            <button onclick="uploadPortrait()">Upload Portrait</button>\n            <button onclick="saveChanges()">Save Changes</button>\n        </div>\n    </div>\n    <script>\n        function uploadPortrait() {\n            const input = document.getElementById('portrait-upload');\n            const heroPortrait = document.getElementById('hero-portrait');\n            const file = input.files[0];\n            const reader = new FileReader();\n            reader.onload = function (e) {\n                heroPortrait.src = e.target.result;\n            };\n            if (file) {\n                reader.readAsDataURL(file);\n            }\n        }\n        function saveChanges() {\n            // Implement save functionality here \n            alert('Changes saved!');\n        }\n    <\/script>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval Hero Card Template</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        .card {
+            width: 300px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            background: white;
+            padding: 15px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .portrait { width: 100%; height: auto; border-radius: 5px; }
+        input, button { width: 100%; padding: 10px; margin: 5px 0;
+                       border: 1px solid #ccc; border-radius: 4px; }
+        h2, h3 { text-align: center; }
+        .stats { display: flex; justify-content: space-between; }
+        .stat { width: 30%; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Hero Card</h2>
+        <img src="#" alt="Hero Portrait" class="portrait" id="heroPortrait">
+        <input type="file" id="portraitInput" accept="image/*"><br>
+        <input type="text" id="heroName" placeholder="Hero Name"><br>
+        <input type="text" id="heroType" placeholder="Hero Type"><br>
+        <div class="stats">
+            <input type="text" class="stat" id="mv" placeholder="Mv"><br>
+            <input type="text" class="stat" id="f" placeholder="F"><br>
+            <input type="text" class="stat" id="s" placeholder="S"><br>
+            <input type="text" class="stat" id="d" placeholder="D"><br>
+            <input type="text" class="stat" id="a" placeholder="A"><br>
+            <input type="text" class="stat" id="w" placeholder="W"><br>
+            <input type="text" class="stat" id="c" placeholder="C"><br>
+        </div>
+        <input type="text" id="mightShields" placeholder="Might Shields"><br>
+        <input type="text" id="willShields" placeholder="Will Shields"><br>
+        <input type="text" id="fateShields" placeholder="Fate Shields"><br>
+        <textarea id="wargear" placeholder="Wargear Description"></textarea><br>
+        <textarea id="heroicActions" placeholder="Heroic Actions"></textarea><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Power</th>
+                    <th>Casting</th>
+                </tr>
+            </thead>
+            <tbody id="magicPowers">
+                <tr><td><input type="text" placeholder="Power Name"></td><td><input type="text" placeholder="Casting Value"></td></tr>
+            </tbody>
+        </table>
+        <input type="text" id="companionMount" placeholder="Companion/Mount"><br>
+        <button onclick="addMagicPower()">Add Magic Power</button>
+        <button onclick="printToPDF()">Print to PDF</button>
+    </div>
+
+    <script>
+        function addMagicPower() {
+            const magicPowerTable = document.getElementById('magicPowers');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = '<td><input type="text" placeholder="Power Name"></td><td><input type="text" placeholder="Casting Value"></td>';
+            magicPowerTable.appendChild(newRow);
+        }
+
+        document.getElementById('portraitInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('heroPortrait').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function printToPDF() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
